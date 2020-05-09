@@ -68,7 +68,6 @@ li a.active {
             <a class="btn btn-outline-success my-2 my-sm-0" id = "add_flight" type="submit" href="/add_luggage_{{fname}}">Add Luggage</a>
         </ul>
     </nav>
-
     {% for bag in luggage %}
     <div id="luggage_container">
         <div class="card" style = "background-color: #dae1e7;">
@@ -77,11 +76,11 @@ li a.active {
             </div>
             <div class="card-body">
             <blockquote class="blockquote mb-0">
-                <p>Weight         : {{bag['weight']}}</p>
-                <p>Dimensions     : {{bag['dimensions']}}</p>
+                <p>Weight         : {{bag['weight']}} kg</p>
+                <p>Dimensions     : {{bag['dimension']['height']}} x {{bag['dimension']['width']}} x {{bag['dimension']['breadth']}} in inches</p>
                 <footer class="blockquote-footer">Container no  : {{bag['container_no']}}</footer>
             </blockquote>
-            <button href="#" class="btn btn-primary" style = "margin-top: 10px;" data-toggle="modal" data-target="#exampleModal">Generate QR Code</button>
+        <button href="" class="btn btn-primary" onclick="document.getElementById('qr_image').src = 'qr_img_{{bag['_id']}}.png'" style = "margin-top: 10px;" data-toggle="modal" data-target="#exampleModal">Generate QR Code</button>
             </div>
         </div>
     </div>
@@ -97,15 +96,21 @@ li a.active {
               </button>
             </div>
             <div class="modal-body" style = "height: 220px">
-              <img src = "luggage_icon.png"style="position:absolute;height:200px;width:200px;left:30%">
+              <img id = "qr_image" src = "luggage_icon.png" style="position:absolute;height:200px;width:200px;left:30%">
             </div>
             <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Print</button>
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
           </div>
         </div>
     </div>
 
+    <script>
+        function change_data(id) {
+            alert(id)
+        }
+    </script>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>

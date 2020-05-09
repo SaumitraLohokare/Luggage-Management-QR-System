@@ -59,18 +59,18 @@ li a.active {
     </nav>
 
     <div class="form_container">
-        <form action = "#" method = "post">
+        <form action = "" method = "post">
             <div class="form-group row">
                 <label for="name" class="col-sm-2 col-form-label">Owner</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" id="name">
+                  <input name="owner" type="text" class="form-control" id="name">
                 </div>
             </div>
             <div class="form-group row">
                 <label for="weight" class="col-sm-2 col-form-label">Weight</label>
                 <div class="col-sm-10">
                     <div class="input-group">
-                        <input type="number" class="form-control" id="weight" placeholder="0" min = "0">
+                        <input name="weight" type="number" class="form-control" id="weight" placeholder="0" min = "0">
                         <div class="input-group-append">
                                 <span class="input-group-text">Kg</span>
                         </div>
@@ -81,7 +81,7 @@ li a.active {
                 <div class="form-group col-md-4">
                     <label for="width">Width</label>
                     <div class="input-group">
-                        <input type="number" class="form-control" id="width" placeholder="0" min = "0">
+                        <input name="width" type="number" class="form-control" id="width" placeholder="0" min = "0">
                         <div class="input-group-append">
                             <span class="input-group-text">inches</span>
                         </div>
@@ -90,7 +90,7 @@ li a.active {
                 <div class="form-group col-md-4">
                     <label for="height">Height</label>
                     <div class="input-group">
-                        <input type="number" class="form-control" id="height" placeholder="0" min = "0">
+                        <input name="height" type="number" class="form-control" id="height" placeholder="0" min = "0">
                         <div class="input-group-append">
                             <span class="input-group-text">inches</span>
                         </div>
@@ -99,13 +99,14 @@ li a.active {
                 <div class="form-group col-md-4">
                     <label for="breadth">Breadth</label>
                     <div class="input-group">
-                        <input type="number" class="form-control" id="breadth" placeholder="0" min = "0">
+                        <input name="breadth" type="number" class="form-control" id="breadth" placeholder="0" min = "0">
                         <div class="input-group-append">
                             <span class="input-group-text">inches</span>
                         </div>
                     </div>
                 </div>
             </div>
+            <input type="hidden" name="flight_id" value="{{fname}}">
             <div>
                 <button type="submit" class="btn btn-primary mb-2" style="margin-top: 10px;position: absolute;left: 45%;">Add Luggage</button>
             </div>

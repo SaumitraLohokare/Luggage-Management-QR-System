@@ -122,6 +122,18 @@ def get_flights():
 def get_password_generator(username):
     return mongo_api.QR_Gen_Accounts.find_one({'email': username})['password']
 
+#####################################################
+#                   FLUTTER API                     #
+#####################################################
+
+@app.route('/api', methods = ['GET'])
+def flutter_api():
+    id = str(request.args['data'])
+    bag = mongo_api.Luggage.find_one({'_id': mongo_api.get_obj_id(id)})
+    flight_name = str(mongo_api.Flights.find_one({'_id': bag['flight_id']})['name'])
+    result = str(bag['owner']) + ',' + str(bag['weight']) + ',' + str(bag['dimension']['width']) + ',' + str(bag['dimension']['height']) + ',' + str(bag['dimension']['breadth']) + ',' + str(bag['container_no']) + ',' + flight_name
+    return result
+
 if __name__ == '__main__':
     mongo_api.main()
-    app.run()
+    app.run(debug = True)

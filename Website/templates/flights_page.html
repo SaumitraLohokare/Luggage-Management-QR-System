@@ -56,6 +56,19 @@ li a.active {
 #add_flight:hover{
     background-color:#007d8a;
 }
+#close_button{
+    position: absolute; 
+    left: 96.5%;
+    color: white;
+    background-color:red;
+    border: none;
+    width: 25px;
+    border-radius: 5px;
+    text-align: center;
+}
+#close_button:active{
+    background-color: darkred;
+}
     </style>
 </head>
 <body>
@@ -112,6 +125,7 @@ li a.active {
         <div class="card" style = "background-color: #dae1e7;">
             <div class="card-header">
             {{flight['name']}}
+            <a href="/delete_flight_{{flight['_id']}}"><button  type="button" id='close_button'>X</button></a>
             </div>
             <div class="card-body">
             <h5 class="card-title">{{flight['from']}} to {{flight['to']}}</h5>
@@ -120,6 +134,7 @@ li a.active {
             <!-- <a href="" class="btn btn-primary">Passenger Manifest</a> -->
             <!-- TODO: implement betterr way to find luggage of flight ... -->
             <a href="/luggage_of_{{flight['_id']}}" class="btn btn-primary">Passenger Manifest</a>
+            <a href="/knapsack_{{flight['_id']}}" class="btn btn-secondary">Calculate Containers</a>
             </div>
         </div>
     </div>

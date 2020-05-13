@@ -7,6 +7,7 @@ QR_Gen_Accounts = ''
 QR_Read_Accounts = ''
 Flights = ''
 Luggage = ''
+Complaint = ''
 
 def get_obj_id(id):
     return ObjectId(id)
@@ -18,6 +19,7 @@ def main():
     global QR_Read_Accounts
     global Flights
     global Luggage
+    global Complaint
 
     connection = pymongo.MongoClient(host = 'localhost', port = 27017)
     database = connection['DBMS_Project']
@@ -25,3 +27,4 @@ def main():
     QR_Gen_Accounts = database['QR_Gen_Accounts']
     Flights = database['Flights']
     Luggage = database['Luggage']
+    Complaint = database['Complaint']

@@ -2,6 +2,7 @@ from flask import Flask, request, render_template, send_file, redirect, url_for
 import mongo_api
 import qr_api
 import helpdesk_api
+import knapsack
 
 app = Flask(__name__)
 
@@ -41,6 +42,11 @@ def add_luggage(fname):
         qr_api.generate_qr(luggage_id)
     return redirect(url_for('luggage_page', fname = fname))
     
+@app.route('/delete_bag_<id>_<fname>', methods =['GET', 'POST'])
+def delete_bad(id, fname):
+    _id = mongo_api.get_obj_id(id)
+    mongo_api.Luggage.delete_one({'_id': _id})
+    return redirect(url_for('luggage_page', fname = fname))
 
 @app.route('/flights', methods = ['GET'])
 def flights_page():
@@ -65,6 +71,12 @@ def add_flights():
         }
         mongo_api.Flights.insert_one(flight)
     return redirect(url_for('flights_page'))        
+
+@app.route('/delete_flight_<id>', methods = ['GET', 'POST'])
+def delete_flight(id):
+    _id = mongo_api.get_obj_id(id)
+    mongo_api.Flights.delete_one({'_id': _id})
+    return redirect(url_for('flights_page'))
 
 @app.route('/login', methods = ['GET'])
 def login_page():
@@ -129,10 +141,31 @@ def get_password_generator(username):
 @app.route('/api', methods = ['GET'])
 def flutter_api():
     id = str(request.args['data'])
+    print(id)
     bag = mongo_api.Luggage.find_one({'_id': mongo_api.get_obj_id(id)})
     flight_name = str(mongo_api.Flights.find_one({'_id': bag['flight_id']})['name'])
     result = str(bag['owner']) + ',' + str(bag['weight']) + ',' + str(bag['dimension']['width']) + ',' + str(bag['dimension']['height']) + ',' + str(bag['dimension']['breadth']) + ',' + str(bag['container_no']) + ',' + flight_name
     return result
+    
+#####################################################
+#                  KNAPSACK API                     #
+#####################################################
+
+@app.route('/knapsack_<id>')
+def call_knapsack(id):
+    luggage = list(mongo_api.Luggage.find({'flight_id': mongo_api.get_obj_id(id)}))
+    result = knapsack.knapsack(luggage)
+    for bag in result:
+        mongo_api.Luggage.find_one_and_update(
+            {'_id': bag['_id']},
+            {
+                '$set': {
+                    'container_no': bag['container_no']
+                }
+            }
+        )
+    return redirect(url_for('luggage_page', fname = id))
+
 
 if __name__ == '__main__':
     mongo_api.main()

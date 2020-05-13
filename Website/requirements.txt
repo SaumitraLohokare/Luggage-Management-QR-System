@@ -1,0 +1,11 @@
+numpy
+pandas
+matplotlib
+seaborn
+sklearn
+tk
+pymongo
+csv
+bson
+flask
+

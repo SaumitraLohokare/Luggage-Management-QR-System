@@ -56,6 +56,19 @@ li a.active {
 #add_flight:hover{
     background-color:#007d8a;
 }
+#close_button{
+    position: absolute; 
+    left: 96.5%;
+    color: white;
+    background-color:red;
+    border: none;
+    width: 25px;
+    border-radius: 5px;
+    text-align: center;
+}
+#close_button:active{
+    background-color: darkred;
+}
     </style>
 </head>
 <body>
@@ -73,6 +86,7 @@ li a.active {
         <div class="card" style = "background-color: #dae1e7;">
             <div class="card-header">
             {{bag['owner']}}
+            <a href="/delete_bag_{{bag['_id']}}_{{fname}}"><button  type="button" id='close_button'>X</button></a>
             </div>
             <div class="card-body">
             <blockquote class="blockquote mb-0">
